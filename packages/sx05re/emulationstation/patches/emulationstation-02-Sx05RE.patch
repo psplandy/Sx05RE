@@ -11,14 +11,14 @@ diff U3 a/es-app/src/guis/GuiMenu.cpp b/es-app/src/guis/GuiMenu.cpp
  	if (isFullUI)
  		addEntry("線上抓取遊戲資訊", 0x777777FF, true, [this] { openScraperSettings(); });
 -
--	addEntry("SOUND SETTINGS", 0x777777FF, true, [this] { openSoundSettings(); });
+-	addEntry("音訊設定", 0x777777FF, true, [this] { openSoundSettings(); });
 -
 +    /* removed, no use for it on Sx05RE
-+  	addEntry("SOUND SETTINGS", 0x777777FF, true, [this] { openSoundSettings(); });
++  	addEntry("音訊設定", 0x777777FF, true, [this] { openSoundSettings(); });
 +    */
  
  	if (isFullUI)
- 		addEntry("UI SETTINGS", 0x777777FF, true, [this] { openUISettings(); });
+ 		addEntry("使用者介面設定", 0x777777FF, true, [this] { openUISettings(); });
 @@ -48,6 +51,248 @@
  	setPosition((Renderer::getScreenWidth() - mSize.x()) / 2, Renderer::getScreenHeight() * 0.15f);
  }
@@ -306,7 +306,7 @@ diff U3 a/es-app/src/guis/GuiMenu.cpp b/es-app/src/guis/GuiMenu.cpp
 -				[] {
 -				if(quitES("/tmp/es-restart") != 0)
 -					LOG(LogWarning) << "Restart terminated with non-zero result!";
--			}, "NO", nullptr));
+-			}, "否", nullptr));
 -		});
 -		row.addElement(std::make_shared<TextComponent>(window, "重新啟動 EMULATIONSTATION", Font::get(FONT_SIZE_MEDIUM), 0x777777FF), true);
 -		s->addRow(row);
