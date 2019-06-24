@@ -9,7 +9,7 @@ diff U3 a/es-app/src/guis/GuiMenu.cpp b/es-app/src/guis/GuiMenu.cpp
 +	
 +	// This will be removed/changed as it doesn't work, or works poorly on Sx05RE,try to use sselph scraper
  	if (isFullUI)
- 		addEntry("SCRAPER", 0x777777FF, true, [this] { openScraperSettings(); });
+ 		addEntry("線上抓取遊戲資訊", 0x777777FF, true, [this] { openScraperSettings(); });
 -
 -	addEntry("SOUND SETTINGS", 0x777777FF, true, [this] { openSoundSettings(); });
 -
@@ -267,7 +267,7 @@ diff U3 a/es-app/src/guis/GuiMenu.cpp b/es-app/src/guis/GuiMenu.cpp
 +
  void GuiMenu::openScraperSettings()
  {
- 	auto s = new GuiSettings(mWindow, "SCRAPER");
+ 	auto s = new GuiSettings(mWindow, "線上抓取遊戲資訊");
 @@ -95,13 +340,15 @@
  
  	if (UIModeController::getInstance()->isUIModeFull())
@@ -275,7 +275,7 @@ diff U3 a/es-app/src/guis/GuiMenu.cpp b/es-app/src/guis/GuiMenu.cpp
 -#ifdef _RPI_
 +
  		// volume control device
- 		auto vol_dev = std::make_shared< OptionListComponent<std::string> >(mWindow, "AUDIO DEVICE", false);
+ 		auto vol_dev = std::make_shared< OptionListComponent<std::string> >(mWindow, "咅訊輸出裝置", false);
  		std::vector<std::string> transitions;
  		transitions.push_back("PCM");
  		transitions.push_back("Speaker");
@@ -284,7 +284,7 @@ diff U3 a/es-app/src/guis/GuiMenu.cpp b/es-app/src/guis/GuiMenu.cpp
 +		transitions.push_back("AML-M8AUDIO");
  		for(auto it = transitions.cbegin(); it != transitions.cend(); it++)
  			vol_dev->add(*it, *it, Settings::getInstance()->getString("AudioDevice") == *it);
- 		s->addWithLabel("AUDIO DEVICE", vol_dev);
+ 		s->addWithLabel("咅訊輸出裝置", vol_dev);
 @@ -110,7 +357,6 @@
  			VolumeControl::getInstance()->deinit();
  			VolumeControl::getInstance()->init();
@@ -294,7 +294,7 @@ diff U3 a/es-app/src/guis/GuiMenu.cpp b/es-app/src/guis/GuiMenu.cpp
  		// disable sounds
  		auto sounds_enabled = std::make_shared<SwitchComponent>(mWindow);
 @@ -412,57 +658,67 @@
- 	auto s = new GuiSettings(mWindow, "QUIT");
+ 	auto s = new GuiSettings(mWindow, "退出");
  
  	Window* window = mWindow;
 -
@@ -302,13 +302,13 @@ diff U3 a/es-app/src/guis/GuiMenu.cpp b/es-app/src/guis/GuiMenu.cpp
 -	if (UIModeController::getInstance()->isUIModeFull())
 -	{
 -		row.makeAcceptInputHandler([window] {
--			window->pushGui(new GuiMsgBox(window, "REALLY RESTART?", "YES",
+-			window->pushGui(new GuiMsgBox(window, "是否確定重新啟動 E.S. ?", "是",
 -				[] {
 -				if(quitES("/tmp/es-restart") != 0)
 -					LOG(LogWarning) << "Restart terminated with non-zero result!";
 -			}, "NO", nullptr));
 -		});
--		row.addElement(std::make_shared<TextComponent>(window, "RESTART EMULATIONSTATION", Font::get(FONT_SIZE_MEDIUM), 0x777777FF), true);
+-		row.addElement(std::make_shared<TextComponent>(window, "重新啟動 EMULATIONSTATION", Font::get(FONT_SIZE_MEDIUM), 0x777777FF), true);
 -		s->addRow(row);
 -
  
@@ -330,7 +330,7 @@ diff U3 a/es-app/src/guis/GuiMenu.cpp b/es-app/src/guis/GuiMenu.cpp
 -		{
  			row.elements.clear();
  			row.makeAcceptInputHandler([window] {
--				window->pushGui(new GuiMsgBox(window, "REALLY QUIT?", "YES",
+-				window->pushGui(new GuiMsgBox(window, "是否確認退出 E.S. ?", "是",
 +				window->pushGui(new GuiMsgBox(window, "QUIT TO RETROARCH? ", "YES",
  					[] {
 +					remove("/var/lock/start.games");
@@ -339,9 +339,9 @@ diff U3 a/es-app/src/guis/GuiMenu.cpp b/es-app/src/guis/GuiMenu.cpp
  					SDL_Event ev;
  					ev.type = SDL_QUIT;
  					SDL_PushEvent(&ev);
- 				}, "NO", nullptr));
+ 				}, "否", nullptr));
  			});
--			row.addElement(std::make_shared<TextComponent>(window, "QUIT EMULATIONSTATION", Font::get(FONT_SIZE_MEDIUM), 0x777777FF), true);
+-			row.addElement(std::make_shared<TextComponent>(window, "退出 EMULATIONSTATION", Font::get(FONT_SIZE_MEDIUM), 0x777777FF), true);
 +			row.addElement(std::make_shared<TextComponent>(window, "START RETROARCH", Font::get(FONT_SIZE_MEDIUM), 0x777777FF), true);
  			s->addRow(row);
 -		}
@@ -359,27 +359,27 @@ diff U3 a/es-app/src/guis/GuiMenu.cpp b/es-app/src/guis/GuiMenu.cpp
 +
  	row.elements.clear();
  	row.makeAcceptInputHandler([window] {
- 		window->pushGui(new GuiMsgBox(window, "REALLY RESTART?", "YES",
+ 		window->pushGui(new GuiMsgBox(window, "是否確定重新啟動系統?", "是",
  			[] {
 -			if (quitES("/tmp/es-sysrestart") != 0)
 +			if (system("systemctl reboot") != 0)
  				LOG(LogWarning) << "Restart terminated with non-zero result!";
- 		}, "NO", nullptr));
+ 		}, "否", nullptr));
  	});
--	row.addElement(std::make_shared<TextComponent>(window, "RESTART SYSTEM", Font::get(FONT_SIZE_MEDIUM), 0x777777FF), true);
+-	row.addElement(std::make_shared<TextComponent>(window, "重新啟動系統", Font::get(FONT_SIZE_MEDIUM), 0x777777FF), true);
 +	row.addElement(std::make_shared<TextComponent>(window, "RESTART Sx05RE", Font::get(FONT_SIZE_MEDIUM), 0x777777FF), true);
  	s->addRow(row);
  
  	row.elements.clear();
  	row.makeAcceptInputHandler([window] {
- 		window->pushGui(new GuiMsgBox(window, "REALLY SHUTDOWN?", "YES",
+ 		window->pushGui(new GuiMsgBox(window, "是否確定將系統關機?", "是",
  			[] {
 -			if (quitES("/tmp/es-shutdown") != 0)
 +			if (system("systemctl poweroff") != 0)
  				LOG(LogWarning) << "Shutdown terminated with non-zero result!";
- 		}, "NO", nullptr));
+ 		}, "否", nullptr));
  	});
--	row.addElement(std::make_shared<TextComponent>(window, "SHUTDOWN SYSTEM", Font::get(FONT_SIZE_MEDIUM), 0x777777FF), true);
+-	row.addElement(std::make_shared<TextComponent>(window, "關機", Font::get(FONT_SIZE_MEDIUM), 0x777777FF), true);
 +	row.addElement(std::make_shared<TextComponent>(window, "SHUTDOWN Sx05RE", Font::get(FONT_SIZE_MEDIUM), 0x777777FF), true);
  	s->addRow(row);
  
@@ -388,7 +388,7 @@ diff U3 a/es-app/src/guis/GuiMenu.cpp b/es-app/src/guis/GuiMenu.cpp
  
  	mVersion.setFont(Font::get(FONT_SIZE_SMALL));
  	mVersion.setColor(0x5E5E5EFF);
--	mVersion.setText("EMULATIONSTATION V" + Utils::String::toUpper(PROGRAM_VERSION_STRING) + buildDate);
+-	mVersion.setText("里歐街機 V" + Utils::String::toUpper(PROGRAM_VERSION_STRING) + buildDate);
 +	mVersion.setText("EMULATIONSTATION V" + Utils::String::toUpper(PROGRAM_VERSION_STRING) + buildDate +" SX05RE v1.8.6");
  	mVersion.setHorizontalAlignment(ALIGN_CENTER);
  	addChild(&mVersion);
