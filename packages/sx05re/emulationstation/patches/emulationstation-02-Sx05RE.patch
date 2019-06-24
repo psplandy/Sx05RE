@@ -5,7 +5,7 @@ diff U3 a/es-app/src/guis/GuiMenu.cpp b/es-app/src/guis/GuiMenu.cpp
  {
  	bool isFullUI = UIModeController::getInstance()->isUIModeFull();
  
-+		addEntry("Sx05RE", 0x777777FF, true, [this] { openSx05RESettings(); });
++		addEntry("魔視寶盒設定", 0x777777FF, true, [this] { openSx05RESettings(); });
 +	
 +	// This will be removed/changed as it doesn't work, or works poorly on Sx05RE,try to use sselph scraper
  	if (isFullUI)
@@ -25,10 +25,10 @@ diff U3 a/es-app/src/guis/GuiMenu.cpp b/es-app/src/guis/GuiMenu.cpp
  
 +void GuiMenu::openSx05RESettings()
 +{
-+	auto s = new GuiSettings(mWindow, "Sx05RE Settings");
++	auto s = new GuiSettings(mWindow, "魔視寶盒設定");
 +	
 +	
-+	auto sx05re_mame_def = std::make_shared< OptionListComponent<std::string> >(mWindow, "MAME EMULATOR", false);
++	auto sx05re_mame_def = std::make_shared< OptionListComponent<std::string> >(mWindow, "MAME 模擬器", false);
 +		std::vector<std::string> mamechoices;
 +		mamechoices.push_back("AdvanceMame");
 +		mamechoices.push_back("mame2003");
@@ -40,14 +40,14 @@ diff U3 a/es-app/src/guis/GuiMenu.cpp b/es-app/src/guis/GuiMenu.cpp
 +		/*devices.push_back("Options");*/
 +		for (auto it = mamechoices.cbegin(); it != mamechoices.cend(); it++)
 +		sx05re_mame_def->add(*it, *it, Settings::getInstance()->getString("Sx05RE_MAME_CORE") == *it);
-+		s->addWithLabel("MAME EMULATOR", sx05re_mame_def);
++		s->addWithLabel("MAME 模擬器", sx05re_mame_def);
 +		s->addSaveFunc([sx05re_mame_def] {
 +		/* runSystemCommand("echo "+sx05re_mame_def->getSelected()+" > /storage/.config/sx05re/mame"); */
 +			if (Settings::getInstance()->getString("Sx05RE_MAME_CORE") != sx05re_mame_def->getSelected())
 +				Settings::getInstance()->setString("Sx05RE_MAME_CORE", sx05re_mame_def->getSelected());
 +		});
 +	
-+	auto sx05re_fba_def = std::make_shared< OptionListComponent<std::string> >(mWindow, "FBA/NEO-GEO CORE", false);
++	auto sx05re_fba_def = std::make_shared< OptionListComponent<std::string> >(mWindow, "FBA/NEO-GEO 核心", false);
 +		std::vector<std::string> fbachoices;
 +		fbachoices.push_back("fbalpha");
 +		fbachoices.push_back("mame2003");
@@ -59,7 +59,7 @@ diff U3 a/es-app/src/guis/GuiMenu.cpp b/es-app/src/guis/GuiMenu.cpp
 +		/*devices.push_back("Options");*/
 +		for (auto it = fbachoices.cbegin(); it != fbachoices.cend(); it++)
 +		sx05re_fba_def->add(*it, *it, Settings::getInstance()->getString("Sx05RE_FBA_CORE") == *it);
-+		s->addWithLabel("FBA/NEO-GEO CORE", sx05re_fba_def);
++		s->addWithLabel("FBA/NEO-GEO 核心", sx05re_fba_def);
 +		s->addSaveFunc([sx05re_fba_def] {
 +		/* runSystemCommand("echo "+sx05re_fba_def->getSelected()+" > /storage/.config/sx05re/mame"); */
 +			if (Settings::getInstance()->getString("Sx05RE_FBA_CORE") != sx05re_fba_def->getSelected())
@@ -86,7 +86,7 @@ diff U3 a/es-app/src/guis/GuiMenu.cpp b/es-app/src/guis/GuiMenu.cpp
 +		});	
 +	
 +	
-+	auto sx05re_n64_def = std::make_shared< OptionListComponent<std::string> >(mWindow, "N64 CORE", false);
++	auto sx05re_n64_def = std::make_shared< OptionListComponent<std::string> >(mWindow, "N64 核心", false);
 +		std::vector<std::string> n64choices;
 +		n64choices.push_back("mupen64plus");
 +		n64choices.push_back("parallel_n64");
@@ -99,7 +99,7 @@ diff U3 a/es-app/src/guis/GuiMenu.cpp b/es-app/src/guis/GuiMenu.cpp
 +		/*devices.push_back("Options");*/
 +		for (auto it = n64choices.cbegin(); it != n64choices.cend(); it++)
 +		sx05re_n64_def->add(*it, *it, Settings::getInstance()->getString("Sx05RE_N64_CORE") == *it);
-+		s->addWithLabel("N64 CORE", sx05re_n64_def);
++		s->addWithLabel("N64 核心", sx05re_n64_def);
 +		s->addSaveFunc([sx05re_n64_def] {
 +		/* runSystemCommand("echo "+sx05re_n64_def->getSelected()+" > /storage/.config/sx05re/nes"); */
 +			if (Settings::getInstance()->getString("Sx05RE_N64_CORE") != sx05re_n64_def->getSelected())
@@ -107,7 +107,7 @@ diff U3 a/es-app/src/guis/GuiMenu.cpp b/es-app/src/guis/GuiMenu.cpp
 +		});
 +	
 +			
-+	auto sx05re_nes_def = std::make_shared< OptionListComponent<std::string> >(mWindow, "NES/FC/FDS CORE", false);
++	auto sx05re_nes_def = std::make_shared< OptionListComponent<std::string> >(mWindow, "NES/FC/FDS 核心", false);
 +		std::vector<std::string> neschoices;
 +		neschoices.push_back("fceumm");
 +		neschoices.push_back("nestopia");
@@ -120,7 +120,7 @@ diff U3 a/es-app/src/guis/GuiMenu.cpp b/es-app/src/guis/GuiMenu.cpp
 +		/*devices.push_back("Options");*/
 +		for (auto it = neschoices.cbegin(); it != neschoices.cend(); it++)
 +		sx05re_nes_def->add(*it, *it, Settings::getInstance()->getString("Sx05RE_NES_CORE") == *it);
-+		s->addWithLabel("NES/FC/FDS CORE", sx05re_nes_def);
++		s->addWithLabel("NES/FC/FDS 核心", sx05re_nes_def);
 +		s->addSaveFunc([sx05re_nes_def] {
 +		/* runSystemCommand("echo "+sx05re_nes_def->getSelected()+" > /storage/.config/sx05re/nes"); */
 +			if (Settings::getInstance()->getString("Sx05RE_NES_CORE") != sx05re_nes_def->getSelected())
@@ -128,7 +128,7 @@ diff U3 a/es-app/src/guis/GuiMenu.cpp b/es-app/src/guis/GuiMenu.cpp
 +		});
 +		
 +		
-+	auto sx05re_snes_def = std::make_shared< OptionListComponent<std::string> >(mWindow, "SNES CORE", false);
++	auto sx05re_snes_def = std::make_shared< OptionListComponent<std::string> >(mWindow, "SFC/SNES 核心", false);
 +		std::vector<std::string> sneschoices;
 +		sneschoices.push_back("snes9x");
 +		sneschoices.push_back("snes9x2002");
@@ -141,14 +141,14 @@ diff U3 a/es-app/src/guis/GuiMenu.cpp b/es-app/src/guis/GuiMenu.cpp
 +		/*devices.push_back("Options");*/
 +		for (auto it = sneschoices.cbegin(); it != sneschoices.cend(); it++)
 +		sx05re_snes_def->add(*it, *it, Settings::getInstance()->getString("Sx05RE_SNES_CORE") == *it);
-+		s->addWithLabel("SNES CORE", sx05re_snes_def);
++		s->addWithLabel("SFC/SNES 核心", sx05re_snes_def);
 +		s->addSaveFunc([sx05re_snes_def] {
 +		/* runSystemCommand("echo "+sx05re_snes_def->getSelected()+" > /storage/.config/sx05re/snes"); */
 +			if (Settings::getInstance()->getString("Sx05RE_SNES_CORE") != sx05re_snes_def->getSelected())
 +				Settings::getInstance()->setString("Sx05RE_SNES_CORE", sx05re_snes_def->getSelected());
 +		});
 +	
-+	auto sx05re_gen_def = std::make_shared< OptionListComponent<std::string> >(mWindow, "GENESIS/MS/CD CORE", false);
++	auto sx05re_gen_def = std::make_shared< OptionListComponent<std::string> >(mWindow, "MD/GENESIS/MS/CD 核心", false);
 +		std::vector<std::string> genesischoices;
 +		genesischoices.push_back("genesis_plus_gx");
 +		genesischoices.push_back("picodrive");
@@ -161,14 +161,14 @@ diff U3 a/es-app/src/guis/GuiMenu.cpp b/es-app/src/guis/GuiMenu.cpp
 +		/*devices.push_back("Options");*/
 +		for (auto it = genesischoices.cbegin(); it != genesischoices.cend(); it++)
 +		sx05re_gen_def->add(*it, *it, Settings::getInstance()->getString("Sx05RE_GEN_CORE") == *it);
-+		s->addWithLabel("GENESIS/MS/CD CORE", sx05re_gen_def);
++		s->addWithLabel("MD/GENESIS/MS/CD 核心", sx05re_gen_def);
 +		s->addSaveFunc([sx05re_gen_def] {
 +			/* runSystemCommand("echo "+sx05re_gen_def->getSelected()+" > /storage/.config/sx05re/snes"); */
 +			if (Settings::getInstance()->getString("Sx05RE_GEN_CORE") != sx05re_gen_def->getSelected())
 +				Settings::getInstance()->setString("Sx05RE_GEN_CORE", sx05re_gen_def->getSelected());
 +		});
 +		
-+	auto sx05re_gba_def = std::make_shared< OptionListComponent<std::string> >(mWindow, "GBA CORE", false);
++	auto sx05re_gba_def = std::make_shared< OptionListComponent<std::string> >(mWindow, "GBA 核心", false);
 +		std::vector<std::string> gbachoices;
 +		gbachoices.push_back("mgba");
 +		gbachoices.push_back("gpsp");
@@ -181,14 +181,14 @@ diff U3 a/es-app/src/guis/GuiMenu.cpp b/es-app/src/guis/GuiMenu.cpp
 +		/*devices.push_back("Options");*/
 +		for (auto it = gbachoices.cbegin(); it != gbachoices.cend(); it++)
 +		sx05re_gba_def->add(*it, *it, Settings::getInstance()->getString("Sx05RE_GBA_CORE") == *it);
-+		s->addWithLabel("GBA CORE", sx05re_gba_def);
++		s->addWithLabel("GBA 核心", sx05re_gba_def);
 +		s->addSaveFunc([sx05re_gba_def] {
 +			/* runSystemCommand("echo "+sx05re_gba_def->getSelected()+" > /storage/.config/sx05re/snes"); */
 +			if (Settings::getInstance()->getString("Sx05RE_GBA_CORE") != sx05re_gba_def->getSelected())
 +				Settings::getInstance()->setString("Sx05RE_GBA_CORE", sx05re_gba_def->getSelected());
 +		});
 +		
-+	auto sx05re_gbc_def = std::make_shared< OptionListComponent<std::string> >(mWindow, "GB/GBC CORE", false);
++	auto sx05re_gbc_def = std::make_shared< OptionListComponent<std::string> >(mWindow, "GB/GBC 核心", false);
 +		std::vector<std::string> gbcchoices;
 +		gbcchoices.push_back("gambatte");
 +		gbcchoices.push_back("gearboy");
@@ -201,21 +201,21 @@ diff U3 a/es-app/src/guis/GuiMenu.cpp b/es-app/src/guis/GuiMenu.cpp
 +		/*devices.push_back("Options");*/
 +		for (auto it = gbcchoices.cbegin(); it != gbcchoices.cend(); it++)
 +		sx05re_gbc_def->add(*it, *it, Settings::getInstance()->getString("Sx05RE_GBC_CORE") == *it);
-+		s->addWithLabel("GB/GBC CORE", sx05re_gbc_def);
++		s->addWithLabel("GB/GBC 核心", sx05re_gbc_def);
 +		s->addSaveFunc([sx05re_gbc_def] {
 +			/* runSystemCommand("echo "+sx05re_gbc_def->getSelected()+" > /storage/.config/sx05re/snes"); */
 +			if (Settings::getInstance()->getString("Sx05RE_GBC_CORE") != sx05re_gbc_def->getSelected())
 +				Settings::getInstance()->setString("Sx05RE_GBC_CORE", sx05re_gbc_def->getSelected());
 +		});
 +	
-+		auto sx05re_boot_def = std::make_shared< OptionListComponent<std::string> >(mWindow, "START AT BOOT", false);
++		auto sx05re_boot_def = std::make_shared< OptionListComponent<std::string> >(mWindow, "開機時要自動執行的程式", false);
 +		std::vector<std::string> devices;
 +		devices.push_back("Emulationstation");
-+		devices.push_back("Kodi");
++		//devices.push_back("Kodi");
 +		devices.push_back("Retroarch");
 +		for (auto it = devices.cbegin(); it != devices.cend(); it++)
 +		sx05re_boot_def->add(*it, *it, Settings::getInstance()->getString("Sx05RE_BOOT") == *it);
-+		s->addWithLabel("START AT BOOT", sx05re_boot_def);
++		s->addWithLabel("開機時要自動執行的程式", sx05re_boot_def);
 +		s->addSaveFunc([sx05re_boot_def] {
 +			/*runSystemCommand("echo "+sx05re_boot_def->getSelected()+" > /storage/.config/def_fe");*/
 +			if (Settings::getInstance()->getString("Sx05RE_BOOT") != sx05re_boot_def->getSelected())
@@ -227,37 +227,37 @@ diff U3 a/es-app/src/guis/GuiMenu.cpp b/es-app/src/guis/GuiMenu.cpp
 +	
 +	if (UIModeController::getInstance()->isUIModeFull())
 +	{
-+	row.addElement(std::make_shared<TextComponent>(window, "!!!!!!!DANGER ZONE!!!!!!!", Font::get(FONT_SIZE_MEDIUM), 0x777777FF), true);
++	row.addElement(std::make_shared<TextComponent>(window, "                           !!!!!!!重置功能 請慎用!!!!!!!", Font::get(FONT_SIZE_MEDIUM), 0x777777FF), true);
 +	s->addRow(row);
 +	row.elements.clear();
 +
 +	row.makeAcceptInputHandler([window] {
-+		window->pushGui(new GuiMsgBox(window, "!!!!!!WARNING THIS WILL DELETE ALL EMULATOR CONFIGS!!!!!!!!!! RESET Sx05RE EMULATORS TO DEFAULT AND RESTART?", "YES",
++		window->pushGui(new GuiMsgBox(window, "!!!!!! 警告 !!!!!!\n這將會刪除所有模擬器的設定\n要重置 魔視寶盒 模擬器成初始設定並重新啟動?", "是",
 +				[] { 
 +				runSystemCommand("/usr/bin/clearconfig.sh EMUS");
-+				}, "NO", nullptr));
++				}, "否", nullptr));
 +	});
-+	row.addElement(std::make_shared<TextComponent>(window, "RESET Sx05RE EMULATORS TO DEFAULT CONFIG", Font::get(FONT_SIZE_MEDIUM), 0x777777FF), true);
++	row.addElement(std::make_shared<TextComponent>(window, "重置 魔視寶盒 模擬器成初始設定", Font::get(FONT_SIZE_MEDIUM), 0x777777FF), true);
 +	s->addRow(row);
 +	row.elements.clear();
 +	
-+	row.makeAcceptInputHandler([window] {
-+		window->pushGui(new GuiMsgBox(window, "!!!!!!WARNING THIS WILL DELETE ALL KODI ADDONS AND CONFIG!!!!!!!!!! RESET KODI TO DEFAULT CONFIG AND RESTART?", "YES",
-+				[] { 
-+				runSystemCommand("/usr/bin/clearconfig.sh KODI");
-+				}, "NO", nullptr));
-+	});
-+	row.addElement(std::make_shared<TextComponent>(window, "RESET KODI TO DEFAULT CONFIG", Font::get(FONT_SIZE_MEDIUM), 0x777777FF), true);
-+	s->addRow(row);
-+	row.elements.clear();
++	//row.makeAcceptInputHandler([window] {
++	//	window->pushGui(new GuiMsgBox(window, "!!!!!!WARNING THIS WILL DELETE ALL KODI ADDONS AND CONFIG!!!!!!!!!! RESET KODI TO DEFAULT CONFIG AND RESTART?", "YES",
++	//			[] { 
++	//			runSystemCommand("/usr/bin/clearconfig.sh KODI");
++	//			}, "否", nullptr));
++	//});
++	//row.addElement(std::make_shared<TextComponent>(window, "RESET KODI TO DEFAULT CONFIG", Font::get(FONT_SIZE_MEDIUM), 0x777777FF), true);
++	//s->addRow(row);
++	//row.elements.clear();
 +	
 +	row.makeAcceptInputHandler([window] {
-+		window->pushGui(new GuiMsgBox(window, "!!!!!!WARNING THIS WILL DELETE ALL CONFIGS/ADDONS!!!!!!!!!! RESET Sx05RE/KODI TO DEFAULT CONFIG AND RESTART?", "YES",
++		window->pushGui(new GuiMsgBox(window, "!!!!!! 警告 !!!!!!\n這將會刪除整個 魔視寶盒 系統的所有追加功能及設定\n要重置 魔視寶盒 成初始設定並重新啟動?", "是",
 +				[] { 
 +				runSystemCommand("/usr/bin/clearconfig.sh ALL");
-+				}, "NO", nullptr));
++				}, "否", nullptr));
 +	});
-+	row.addElement(std::make_shared<TextComponent>(window, "RESET SYSTEM TO DEFAULT CONFIG", Font::get(FONT_SIZE_MEDIUM), 0x777777FF), true);
++	row.addElement(std::make_shared<TextComponent>(window, "重置 魔視寶盒 系統成初始設定", Font::get(FONT_SIZE_MEDIUM), 0x777777FF), true);
 +	s->addRow(row);
 +	row.elements.clear();
 +	
@@ -313,7 +313,7 @@ diff U3 a/es-app/src/guis/GuiMenu.cpp b/es-app/src/guis/GuiMenu.cpp
 -
  
 +			row.makeAcceptInputHandler([window] {
-+				window->pushGui(new GuiMsgBox(window, "QUIT TO KODI? ", "YES",
++				window->pushGui(new GuiMsgBox(window, "是否確認啟動 KODI? ", "是",
 +					[] {
 +					remove("/var/lock/start.games");
 +            		runSystemCommand("touch /var/lock/start.kodi");
@@ -321,7 +321,7 @@ diff U3 a/es-app/src/guis/GuiMenu.cpp b/es-app/src/guis/GuiMenu.cpp
 +					SDL_Event ev;
 +					ev.type = SDL_QUIT;
 +					SDL_PushEvent(&ev);
-+				}, "NO", nullptr));
++				}, "否", nullptr));
 +			});
 +			row.addElement(std::make_shared<TextComponent>(window, "START KODI", Font::get(FONT_SIZE_MEDIUM), 0x777777FF), true);
 +			s->addRow(row);
@@ -331,7 +331,7 @@ diff U3 a/es-app/src/guis/GuiMenu.cpp b/es-app/src/guis/GuiMenu.cpp
  			row.elements.clear();
  			row.makeAcceptInputHandler([window] {
 -				window->pushGui(new GuiMsgBox(window, "是否確認退出 E.S. ?", "是",
-+				window->pushGui(new GuiMsgBox(window, "QUIT TO RETROARCH? ", "YES",
++				window->pushGui(new GuiMsgBox(window, "是否確認啟動 RETROARCH? ", "是",
  					[] {
 +					remove("/var/lock/start.games");
 +            		runSystemCommand("touch /var/lock/start.retro");
@@ -342,19 +342,19 @@ diff U3 a/es-app/src/guis/GuiMenu.cpp b/es-app/src/guis/GuiMenu.cpp
  				}, "否", nullptr));
  			});
 -			row.addElement(std::make_shared<TextComponent>(window, "退出 EMULATIONSTATION", Font::get(FONT_SIZE_MEDIUM), 0x777777FF), true);
-+			row.addElement(std::make_shared<TextComponent>(window, "START RETROARCH", Font::get(FONT_SIZE_MEDIUM), 0x777777FF), true);
++			row.addElement(std::make_shared<TextComponent>(window, "啟動 RETROARCH", Font::get(FONT_SIZE_MEDIUM), 0x777777FF), true);
  			s->addRow(row);
 -		}
 -	}
 +      
 +       row.elements.clear();
 +		row.makeAcceptInputHandler([window] {
-+			window->pushGui(new GuiMsgBox(window, "REALLY RESTART?", "YES",
++			window->pushGui(new GuiMsgBox(window, "是否確定重新啟動 E.S. ?", "是",
 +				[] {
 +    		   runSystemCommand("systemctl restart emustation.service");
-+			}, "NO", nullptr));
++			}, "否", nullptr));
 +		});
-+		row.addElement(std::make_shared<TextComponent>(window, "RESTART EMULATIONSTATION", Font::get(FONT_SIZE_MEDIUM), 0x777777FF), true);
++		row.addElement(std::make_shared<TextComponent>(window, "重新啟動 EMULATIONSTATION", Font::get(FONT_SIZE_MEDIUM), 0x777777FF), true);
 +		s->addRow(row);
 +
  	row.elements.clear();
@@ -367,7 +367,7 @@ diff U3 a/es-app/src/guis/GuiMenu.cpp b/es-app/src/guis/GuiMenu.cpp
  		}, "否", nullptr));
  	});
 -	row.addElement(std::make_shared<TextComponent>(window, "重新啟動系統", Font::get(FONT_SIZE_MEDIUM), 0x777777FF), true);
-+	row.addElement(std::make_shared<TextComponent>(window, "RESTART Sx05RE", Font::get(FONT_SIZE_MEDIUM), 0x777777FF), true);
++	row.addElement(std::make_shared<TextComponent>(window, "重新啟動系統", Font::get(FONT_SIZE_MEDIUM), 0x777777FF), true);
  	s->addRow(row);
  
  	row.elements.clear();
@@ -380,7 +380,7 @@ diff U3 a/es-app/src/guis/GuiMenu.cpp b/es-app/src/guis/GuiMenu.cpp
  		}, "否", nullptr));
  	});
 -	row.addElement(std::make_shared<TextComponent>(window, "關機", Font::get(FONT_SIZE_MEDIUM), 0x777777FF), true);
-+	row.addElement(std::make_shared<TextComponent>(window, "SHUTDOWN Sx05RE", Font::get(FONT_SIZE_MEDIUM), 0x777777FF), true);
++	row.addElement(std::make_shared<TextComponent>(window, "關機", Font::get(FONT_SIZE_MEDIUM), 0x777777FF), true);
  	s->addRow(row);
  
  	mWindow->pushGui(s);
